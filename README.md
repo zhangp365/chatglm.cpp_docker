@@ -1,18 +1,20 @@
+[中文版](README_cn.md)   [English Version](README.md)
 # Introduction
-This project dockerises the deployment of [li-plus/chatglm.cpp](https://github.com/li-plus/chatglm.cpp) and its variants. It provides a default configuration (corresponding to a vanilla deployment of the application)
-
-*This goal of this project is to be to [li-plus/chatglm.cpp](https://github.com/li-plus/chatglm.cpp), what [AbdBarho/stable-diffusion-webui-docker](https://github.com/AbdBarho/stable-diffusion-webui-docker) is to [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui).*
+This project is based on [li-plus/chatglm.cpp](https://github.com/li-plus/chatglm.cpp) to package a default [Xorbits/chatglm2-6B-GGML](https://huggingface.co/Xorbits/chatglm2-6B-GGML/tree/main) chatglm2-ggml-q4_1.bin model. It can be run in a Docker container, allowing you to experience chatglm2 directly through your browser, using only CPU, out of the box.
 
 # Usage
-*This project currently supports Linux as the deployment platform. It will also work using WSL2.*
-docker run -p 7860:7860 -v /your/path/models:/models -d zhangp365/chatglm-webui:v0.1
+*Run the following command using Docker*
+```
+docker run -p 7860:7860 -d zhangp365/chatglm-webui:v0.1
+```
+*Access it in your browser at http://localhost:7860/*
 
-## Pre-Requisites
-- docker
-- docker compose
-- CUDA docker runtime
-
-## Docker Compose
-This is the recommended deployment method (it is the easiest and quickest way to manage folders and settings through updates and reinstalls). The recommend variant is `default` (it is an enhanced version of the vanilla application).
-
+# Changing Models
+You can replace it with other models supported by [li-plus/chatglm.cpp](https://github.com/li-plus/chatglm.cpp). When starting Docker, use the -v parameter and specify the model name in the -e environment variable. Place the model in the corresponding external directory as follows:``
+```
+docker run -p 7860:7860 -e CLI_ARGS="-m models/your_model_name" -v /your/path/models:/app/models -d zhangp365/chatglm-webui:v0.1
+```
+# Docker Image
+Link: https://hub.docker.com/repository/docker/zhangp365/chatglm-webui/general
+Size: packaging a 3.9GB chatglm2-ggml-q4_1.bin model, after compression in Docker, the image size is only 3.7GB, making it very convenient to download and experience. 
 
